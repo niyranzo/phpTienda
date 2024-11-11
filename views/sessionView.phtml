@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+</head>
+<body>
+    <?php
+        echo "<div style='text-align:center'>".$info."</div>";
+        if(!isset($_GET['register'])){
+    ?>
+    <h1 style="text-align:center;">Bienvenido  a Tienda</h1>
+    <form action="index.php?c=login" method="post" style="text-align:center;">
+        <input type="text" name="username" placeholder="Nombre usuario"><br><br>
+        <input type="password" name="password" placeholder="Contraseña"><br><br>
+        <input type="submit" name="submit" placeholder="enviar">
+    </form><br>
+    <div style='text-align:center;'>
+        <a href="index.php?c=login&register=1">Registrarse</a><br>
+        <a href="index.php?volver=1">Volver al inicio</a>
+
+    </div>
+    <?php
+        }else{
+            
+            echo "<h1 style='text-align:center;'>Formulario de Registro</h1>";
+            echo "<form action='index.php?c=login&register=1' method='post' style='text-align:center;'>
+                <input type='text' name='regUsername' placeholder='Nombre usuario'><br><br>
+                <input type='password' name='regPassword' placeholder='Contraseña'><br><br>
+                <input type='submit' name='regSubmit' placeholder='enviar'>
+            </form><br>
+            <div style='text-align:center;'><a href='index.php?volver=1'>Volver al inicio</a></div>";
+        }
+    ?>
+
+</body>
+</html>

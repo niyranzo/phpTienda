@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar o editar usuario</title>
+</head>
+<body>
+    <h1 style="text-align:center">Agregar o editar usuario</h1>
+    <form action='index.php?c=login' method='post' style='text-align:center;'>
+        <input type='text' name='newUsername' placeholder='Nombre usuario'><br><br>
+        <input type='password' name='newPassword' placeholder='Contraseña'><br><br>
+        <input type="checkbox" name="isAdmin" > Es admin? <br><br>
+        <input type='submit' name='newSubmit' value='enviar'>
+    </form><br>
+    <div style='text-align:center;'>
+    <?php
+        echo $info."<br><br>"; 
+        foreach($users as $user){
+            echo "-".$user->getUsername();
+            if($user->getIsAdmin()){
+                echo " | <a href='index.php?c=login&noAdmin=".$user->getId()."'> quitar de admin</a>"; 
+            }else{
+                echo " | <a href='index.php?c=login&siAdmin=".$user->getId()."'> poner de admin</a>";
+            }
+            echo " | <a href='index.php?c=login&borrar=".$user->getId()."'>Borrar Usuario</a><br>";
+        }
+    ?>
+        <a href="index.php?volver=1">Volver al inicio</a>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+</head>
+<h1 style="text-align: center;">Agregar nuevo producto</h1>
+<body>
+    <form action="index.php?c=product" method="post" style="text-align: center;" enctype="multipart/form-data" >
+        <input type="text" name="nameProduct" placeholder="Nombre del producto"><br><br>
+        <input type="number" name="stock" placeholder="Numero de stock "><br><br>
+        Imagen del producto: <br><br>
+        <input type="file" name="image" placeholder="image"><br><br>
+        <input type="number" name="price" placeholder="Precio"><br><br>
+        Descripción del producto <br>:
+        <textarea name="description" rows="5" cols="39"> </textarea><br>
+        <input type="submit" value="Agregar producto">
+    </form>
+    <div style="text-align:center">
+        <br>
+        <a href="index.php?volver=1">Volver al inicio</a>
+        <?php
+          echo $info;
+        ?>
+    </div>
+</body>
+</html>

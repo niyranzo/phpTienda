@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de los Pedidos</title>
+</head>
+<body>
+    <h1 style="text-align:center">Estado de los Pedidos</h1>
+    <div style="text-align:center">
+    <?php
+      echo $info;
+      foreach($ordersStates as $order){
+        if($order->getState()==1){
+            $state="Pedido";
+            $cambio="<a href='index.php?c=order&pagado=".$order->getId()."'>Cambiar a pagado</a>";
+        }elseif($order->getState()==2){
+            $state="Pagado";
+            $cambio="<a href='index.php?c=order&enviar=".$order->getId()."'>Enviar producto</a>";
+        }
+        echo "ID del pedido: ".$order->getId()." Estado:".$state." | ".$cambio."<br>";
+      }
+    ?>
+            <a href="index.php?volver=1">Volver al inicio</a>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi carrito</title>
+</head>
+<body>
+    <h1 style='text-align:center;'>Mi pedido</h1>
+    <div style='text-align:center;'>
+    <?php
+    if (!empty($lineas)) {
+     foreach ($lineas as $linea){
+        echo "
+        <h3>".productRepository::getProduct($linea->getId_product())->getName()." </h3> cantidad: ".$linea->getAmount()." <br>
+        ";
+     }
+     echo "<hr>";
+     echo "Total a pagar : ".orderRepository::getOrder($_SESSION['user']->getId())->getTotal()."<br>";
+     echo "<a href='index.php?c=order&hacerPedido=1'>Hacer pedido</a>";
+    }else{
+        echo "No hay nada en tu carrito :(";
+    }
+    ?>
+        <a href="index.php?volver=1">Volver al inicio</a>
+
+    </div>
+</body>
+</html>

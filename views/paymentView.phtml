@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodo de pago</title>
+</head>
+<body>
+    <h1 style="text-align:center">Metodo de pago</h1>
+    <div style="text-align:center">
+        <a href="index.php?c=pay&tarjeta=1">Tarjeta</a><br>
+        <a href="index.php?c=pay&transf=1">Transferencia</a><br><br>
+        <a href="index.php?volver=1">Volver al inicio</a><br><br>
+
+        <?php
+          echo $info;
+        ?>
+    </div>
+    <?php
+        if(isset($_GET['tarjeta'])){
+    ?>
+    <form action="index.php?c=pay" method="post" style="text-align:center">
+        <input type="text"  placeholder="Nº de Tarjeta" require><br><br>
+        cvc: <br><br>
+        <input type="text"  placeholder="CVC" require><br><br>
+        <input type="month" name="" require><br><br>
+        <input type="text" placeholder="Dirección" require><br><br>
+        <input type="submit" name="submitTarj" value="Enviar"><br><br>
+    </form>
+    <?php
+        }elseif(isset($_GET['transf'])){
+    ?>
+    <form action="index.php?c=pay" method="post" style="text-align:center">
+        <input type="text" placeholder="IVAN" require><br><br>
+        <input type="text" placeholder="Dirección" require><br><br>
+        <input type="submit" name="submitTrans" value="Enviar"><br><br>
+    </form>
+            <?php
+        }
+    ?>
+
+</body>
+</html>

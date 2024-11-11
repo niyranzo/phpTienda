@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis pedidos enviados</title>
+</head>
+<body>
+    <h1 style="text-align:center">Mis pedidos</h1>
+    <div style="text-align:center">
+    <?php
+
+        foreach($orders as $order){
+            if($order->getState()==1){
+                $state="Pedido";
+            }elseif($order->getState()==2){
+                $state="Pagado";
+            }else{
+                $state = "Enviado";
+            }
+            echo "Pedido con id: " .$order->getId()." con fecha: ".$order->getDate()."<br>";
+            foreach((lineProduct::getLinesEnviados($order)) as $linea){
+                echo "-".productRepository::getProduct($linea->getId_product())->getName()." Cantidad: ".$linea->getAmount()."<br>";
+            }
+            echo "Estado del pedido: ".$state ;
+            echo "<br>Total pagado: ".$order->getTotal();
+            echo "<br><br>";
+        }
+    ?>
+        <a href="index.php?volver=1">Volver al inicio</a>
+
+    </div>
+    
+</body>
+</html>

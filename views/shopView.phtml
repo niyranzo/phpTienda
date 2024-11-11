@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+</head>
+<body>
+    <div style="text-align:center">
+        
+        <?php
+            if(isset($_SESSION['user'])){
+                echo "<a href='index.php?logout=1'>Cerrar sesion</a> | ";
+                echo "<a href='index.php?c=order&idUserCarr=".$_SESSION['user']->getId()."'>Ver Carrito</a> | ";
+                echo "<a href='index.php?c=order&idUserOrder=".$_SESSION['user']->getId()."'>Ver mis pedidos</a> | ";
+            }else{
+                echo "<a href='index.php?c=login&login=1'>Iniciar sesión</a>";
+            }
+        ?>
+        <?php
+            if(isset($_SESSION['user'])){
+                if($_SESSION['user']->getIsAdmin()){
+                    echo "<a href='index.php?add=1'>Agregar Producto nuevo</a> | ";
+                    echo "<a href='index.php?addUser=1'>Agregar o editar usuario</a> | ";
+                    echo "<a href='index.php?state=1'>Ver estado de los pedidos</a>";
+                }   
+            }
+            echo "<br><br>".$info;
+        ?>
+    </div>
+   
+    
+    <h1 style="text-align:center" >Tienda Online</h1>
+    <hr>
+    <h2>Productos: </h2>
+    <?php
+        echo "<h4>Producto más vendido: ".lineProduct::getProductoMasVendido()[0].", cantidad: ".lineProduct::getProductoMasVendido()[1]."</h4><br>";
+        echo "<h4>Usuario que más compro: ".lineProduct::getUsuarioMasGastado()[0].", gastado: ".lineProduct::getUsuarioMasGastado()[1]."</h4><br>";
+
+        foreach($products as $product){
+            echo "┎┈┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈┈┒ <br>";
+            echo "
+            <ul>
+                <li>
+                <img src='public/img/". $product->getImg() . "' alt='Poster' style='width:120px'><h3>".$product->getName()."</h3>
+                <p>Precio : ".$product->getPrice()."€</p>
+                <p>Descripción: ".$product->getDescription()."</p>
+                </li>
+            </ul>
+            ";
+            if(isset($_SESSION['user'])){
+                if($_SESSION['user']->getIsAdmin()){
+                    echo "<a href='index.php?borrar=".$product->getId()."'>Borrar Producto </a><br><br>";
+                }
+            }
+            if(isset($_SESSION['user'])){
+                if($product->getStock() <=0){
+                    echo "Producto ya agotado";
+                }else{
+                    if($product->getStock() <5){
+                        echo "QUEDAN MENOS DE 5 EN STOCK!";
+                    }
+                    echo "<form action='index.php?c=product&idProducto=".$product->getId()."&precioProd=".$product->getPrice()."' method='post'>
+                    <input type='number' name='amount' placeholder='cantidad' require>
+                    <input type='submit' name='añadir' value='Añadir al carrito'>
+                </form>";
+                }
+                echo "Cantidad que has comprado del producto : ".lineProduct::getAmountBought($product->getId(), $_SESSION['user']->getId());
+            }
+            echo "<br>┖┈┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┚<br>";
+        }
+    ?>
+</body>
+</html>
